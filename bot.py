@@ -1621,7 +1621,7 @@ async def send_girl_ticket(ctx):
 async def send_ticket(ctx):
     file = await get_discord_file_from_url(TICKET_BANNER_URL, "banner.png")
     if file:
-        img_embed = discord.Embed(color=discord.Color.from_rgb(57, 255, 20)).set_image(url="attachment://banner.png")
+        img_embed = discord.Embed(color=discord.Color.from_rgb(53, 162, 235)).set_image(url="attachment://banner.png")
         await ctx.send(file=file, embed=img_embed)
     text_embed = discord.Embed(
         description=(
