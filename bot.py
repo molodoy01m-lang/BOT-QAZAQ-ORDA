@@ -56,9 +56,10 @@ clans_db = {}
 user_clan_mapping = {}
 active_lobbies = {}
 
-GIRL_BANNER_URL = "https://cdn.discordapp.com/attachments/1544309714962227230/1558116524093341727/banner_girl.png?ex=6ad96dd7&is=6ad81c57&hm=0df121c732dd219e0a893923b0744965c8b52b8f44a02ebe03e794b1746e9e&"
+GIRL_BANNER_URL = "https://multibot.pro/api/embeds/images/nfmpvssumgp3km0o"
 MEDIA_BANNER_URL = "https://multibot.pro/api/embeds/images/nfmpvssumgp3km0o"
 TICKET_BANNER_URL = "https://images-ext-1.discordapp.net/external/6VqsrbdKdtI528FK06McahqRlCcp77Gitay4gBq7P7E/https/multibot.pro/api/embeds/images/5909b9dh8j9q8grp?format=webp&width=2048&height=683"
+INFO_BANNER_URL = "https://multibot.pro/api/embeds/images/nfmpvssumgp3km0o" # Осы жерге ақпарат баннерінің сілтемесін қойыңыз
 
 STAFF_ROLE_IDS = [
     1558434161813885003, 1560326263896539196, 1561398698548658297,
@@ -656,7 +657,7 @@ class TicketSelectView(View):
             if guild.get_role(r_id): overwrites[guild.get_role(r_id)] = discord.PermissionOverwrite(read_messages=True, send_messages=True)
 
         t_channel = await guild.create_text_channel(name=ch_name, category=interaction.channel.category, overwrites=overwrites)
-        embed = discord.Embed(description="**Система поддержки ALASH PROJECT KZ**\nОпишите вашу ситуацию.", color=discord.Color.from_rgb(57, 255, 20))
+        embed = discord.Embed(description="**Система поддержки ALASH PROJECT KZ**\nОпишите вашу ситуацию.", color=discord.Color.from_rgb(53, 162, 235))
         embed.add_field(name="• Пользователь", value=user.mention)
         embed.add_field(name="• Категория", value=cat_sel)
         await t_channel.send(content=f"{user.mention} " + " ".join(pings), embed=embed, view=TicketControlView("general"))
@@ -1307,25 +1308,19 @@ async def on_member_update(before, after):
 
 @bot.event
 async def on_voice_state_update(member, before, after):
-    # 1. Авто-создание приватных комнат (динамический войс)
     if after.channel and "создать войс" in after.channel.name.lower():
         v_ch = await member.guild.create_voice_channel(name=f"Комната {member.name}", category=after.channel.category)
         await v_ch.set_permissions(member, connect=True, speak=True, manage_channels=True)
         temp_voice_channels[v_ch.id] = member.id
         await member.move_to(v_ch)
 
-    # 2. Авто-удаление пустых приватных комнат
     if before.channel and before.channel.id in temp_voice_channels:
         if len(before.channel.members) == 0:
             del temp_voice_channels[before.channel.id]
             await before.channel.delete()
 
-    # --------------------------------------------------
-    # ГОЛОСОВОЙ КАНАЛ АУДИТ ЛОГИ (ПОДРОБНЫЙ МОНИТОРИНГ)
-    # --------------------------------------------------
     guild = member.guild
 
-    # Подключение к голосовому каналу (Connect)
     if before.channel is None and after.channel is not None:
         await send_custom_log(
             guild=guild,
@@ -1338,8 +1333,6 @@ async def on_voice_state_update(member, before, after):
             ],
             color=discord.Color.green()
         )
-
-    # Отключение от голосового канала (Disconnect)
     elif before.channel is not None and after.channel is None:
         await send_custom_log(
             guild=guild,
@@ -1352,8 +1345,6 @@ async def on_voice_state_update(member, before, after):
             ],
             color=discord.Color.red()
         )
-
-    # Перемещение между каналами (Move)
     elif before.channel != after.channel and before.channel is not None and after.channel is not None:
         moderator = None
         try:
@@ -1379,7 +1370,6 @@ async def on_voice_state_update(member, before, after):
             color=discord.Color.blue()
         )
 
-    # Заглушение микрофона сервера (Server Mute / Unmute)
     if before.mute != after.mute:
         action = "Заглушен микрофон (Server Mute)" if after.mute else "Снята заглушка (Server Unmute)"
         emoji = "🔇" if after.mute else "🔊"
@@ -1407,7 +1397,6 @@ async def on_voice_state_update(member, before, after):
             color=discord.Color.orange() if after.mute else discord.Color.green()
         )
 
-    # Отключение звука сервера (Server Deafen / Undeafen)
     if before.deaf != after.deaf:
         action = "Отключен звук (Server Deafen)" if after.deaf else "Включен звук (Server Undeafen)"
         emoji = "🎧" if after.deaf else "🔊"
@@ -1441,7 +1430,6 @@ async def on_voice_state_update(member, before, after):
 # --------------------------------------------------
 @bot.command(name="play", aliases=["p"])
 async def play(ctx, *, search: str):
-    """Воспроизведение музыки через SoundCloud"""
     if not ctx.author.voice:
         return await ctx.send("❌ Сначала зайдите в голосовой канал!")
 
@@ -1454,7 +1442,6 @@ async def play(ctx, *, search: str):
             return await ctx.send(f"❌ Ошибка подключения к голосовому каналу: `{e}`")
 
     msg = await ctx.send("🔍 Поиск трека...")
-
     query = search if search.startswith("http://") or search.startswith("https://") else f"scsearch:{search}"
 
     try:
@@ -1490,7 +1477,6 @@ async def play(ctx, *, search: str):
 
 @bot.command(name="skip", aliases=["s"])
 async def skip(ctx):
-    """Пропустить текущий трек"""
     if ctx.voice_client and ctx.voice_client.is_playing():
         ctx.voice_client.stop()
         await ctx.send("⏭️ Трек пропущен!")
@@ -1500,7 +1486,6 @@ async def skip(ctx):
 
 @bot.command(name="stop")
 async def stop(ctx):
-    """Остановить воспроизведение и очистить очередь"""
     if ctx.voice_client:
         music_queues[ctx.guild.id].clear()
         ctx.voice_client.stop()
@@ -1509,7 +1494,6 @@ async def stop(ctx):
 
 @bot.command(name="leave")
 async def leave(ctx):
-    """Отключить бота от голосового канала"""
     if ctx.voice_client:
         music_queues[ctx.guild.id].clear()
         await ctx.voice_client.disconnect()
@@ -1524,7 +1508,6 @@ async def leave(ctx):
 @bot.command(name="clear", aliases=["purge", "clean"])
 @commands.has_permissions(manage_messages=True)
 async def clear_messages(ctx, amount: int = 10):
-    """Удаление сообщений (например, !clear 10)"""
     deleted = await ctx.channel.purge(limit=amount + 1)
     confirm_msg = await ctx.send(f"🧹 Успешно удалено **{len(deleted) - 1}** сообщений!")
     await asyncio.sleep(3)
@@ -1594,15 +1577,20 @@ async def send_voice_panel(ctx):
     )
     await ctx.send(embed=embed, view=VoiceControlPanel())
 
+
 @bot.command()
 async def send_girl_ticket(ctx):
     try:
         await ctx.message.delete()
     except:
         pass
-    img_embed = discord.Embed(color=discord.Color.from_rgb(255, 105, 180))
+    
+    blue_color = discord.Color.from_rgb(53, 162, 235)
+    
+    img_embed = discord.Embed(color=blue_color)
     img_embed.set_image(url=GIRL_BANNER_URL)
     await ctx.send(embed=img_embed)
+    
     text_embed = discord.Embed(
         description=(
             "<a:Zoom:1562922078523498526> **Роль Девушка**\n\n"
@@ -1613,16 +1601,24 @@ async def send_girl_ticket(ctx):
             "<a:a_pink_dot:1562921198113914981> Модераторы рассмотрят ваш запрос\n\n"
             "<a:15770animatedarrowyellow:1562921937561190450> Чтобы получить роль, откройте тикет или обратитесь к администрации сервера."
         ),
-        color=discord.Color.from_rgb(255, 105, 180)
+        color=blue_color
     )
     await ctx.send(embed=text_embed, view=GirlTicketMainView())
 
+
 @bot.command()
 async def send_ticket(ctx):
-    file = await get_discord_file_from_url(TICKET_BANNER_URL, "banner.png")
-    if file:
-        img_embed = discord.Embed(color=discord.Color.from_rgb(53, 162, 235)).set_image(url="attachment://banner.png")
-        await ctx.send(file=file, embed=img_embed)
+    try:
+        await ctx.message.delete()
+    except:
+        pass
+
+    blue_color = discord.Color.from_rgb(53, 162, 235)
+
+    img_embed = discord.Embed(color=blue_color)
+    img_embed.set_image(url=TICKET_BANNER_URL)
+    await ctx.send(embed=img_embed)
+    
     text_embed = discord.Embed(
         description=(
             "<:739224member:1562927033422450838> Поддержка **RAGE PROJECT MIX**\n\n"
@@ -1630,17 +1626,24 @@ async def send_ticket(ctx):
             "<a:15770animatedarrowyellow:1562927278382649365> Важно уважительно относиться к сотрудникам поддержки и соблюдать этикет при общении. Не стоит использовать ненормативную лексику или агрессивный тон. Помните, что запрещается злоупотреблять каналом поддержки.\n\n"
             "<a:a_pink_dot:1562927182903517375> Также стоит учитывать, что время ответа на ваш запрос может быть различным в зависимости от сложности вопроса и загруженности поддержки. Поэтому, пожалуйста, будьте терпеливы и ожидайте ответа."
         ),
-        color=discord.Color.from_rgb(53, 162, 235)
+        color=blue_color
     )
     await ctx.send(embed=text_embed, view=TicketMainView())
 
 
 @bot.command()
 async def send_media(ctx):
-    file = await get_discord_file_from_url(MEDIA_BANNER_URL, "banner_media.png")
-    if file:
-        img_embed = discord.Embed(color=discord.Color.from_rgb(180, 0, 0)).set_image(url="attachment://banner_media.png")
-        await ctx.send(file=file, embed=img_embed)
+    try:
+        await ctx.message.delete()
+    except:
+        pass
+
+    blue_color = discord.Color.from_rgb(53, 162, 235)
+
+    img_embed = discord.Embed(color=blue_color)
+    img_embed.set_image(url=MEDIA_BANNER_URL)
+    await ctx.send(embed=img_embed)
+
     text_embed = discord.Embed(
         description=(
             "<a:a_pink_dot:1562471740410560532> Наш проект готов к сотрудничеству с вами как с медиа игроком (TikTok стримы/видео).\n\n"
@@ -1650,14 +1653,21 @@ async def send_media(ctx):
             "<a:a_pink_dot:1562471740410560532> Привилегию на сервере \"Медиа\"\n"
             "<a:a_pink_dot:1562471740410560532> Роль в Discord <@&1548371779544813603>\n"
             "<a:a_pink_dot:1562471740410560532> В привилегию \"MEDIA\" входит весь функционал привилегии \"ALASH\""
-        ).format(MEDIA_ROLE_ID=MEDIA_ROLE_ID), 
-        color=discord.Color.from_rgb(180, 0, 0)
+        ), 
+        color=blue_color
     )
     await ctx.send(embed=text_embed, view=MediaMainView())
 
 
 @bot.command()
 async def send_clan(ctx):
+    try:
+        await ctx.message.delete()
+    except:
+        pass
+
+    blue_color = discord.Color.from_rgb(53, 162, 235)
+
     embed = discord.Embed(
         title="<a:15770animatedarrowyellow:1562927278382649365> Клановые войны",
         description=(
@@ -1673,10 +1683,45 @@ async def send_clan(ctx):
             "<a:a_pink_dot:1562927182903517375> Тег клана автоматически добавляется к нику каждого участника\n\n"
             "**QAZAQ ORDA**"
         ),
-        color=discord.Color.from_rgb(180, 0, 0)
+        color=blue_color
     )
     embed.set_footer(text="qazaq orda")
     await ctx.send(embed=embed, view=ClanPanelView())
+
+
+@bot.command()
+async def send_info(ctx):
+    try:
+        await ctx.message.delete()
+    except:
+        pass
+
+    blue_color = discord.Color.from_rgb(53, 162, 235)
+
+    # 1. Баннер
+    img_embed = discord.Embed(color=blue_color)
+    img_embed.set_image(url=INFO_BANNER_URL)
+    await ctx.send(embed=img_embed)
+
+    # 2. Текст инфо-центра
+    text_embed = discord.Embed(
+        description=(
+            "<a:Zoom:1562927250331009034> **Информационный центр**\n\n"
+            "<a:a_pink_dot:1562927182903517375> **Тикет система:**\n"
+            "Подача заявок в администрацию, жалобы на игроков и администраторов, "
+            "<a:a_pink_dot:1562927182903517375> а также обжалование блокировок осуществляются через специальный чат 📞 • **тикет** — <#1555239068969996408>\n\n"
+            "<a:a_pink_dot:1562927182903517375> **Навигация:**\n"
+            "<a:a_pink_dot:1562927182903517375> **Актуальные новости комьюнити** — <#1534260434637426913>\n"
+            "<a:a_pink_dot:1562927182903517375> **Правила Discord сервера** — <#1562865335059881994>\n"
+            "<a:a_pink_dot:1562927182903517375> **Техническая поддержка проекта** — <#1555239068969996408>\n"
+            "<a:a_pink_dot:1562927182903517375> **Верификация Steam аккаунта** — <#1555245055118151872>\n\n"
+            "<a:a_pink_dot:1562927182903517375> **Социальные сети:**\n"
+            "<a:15770animatedarrowyellow:1562927278382649365> **Telegram** — https://t.me/qazaq_orda_community"
+        ),
+        color=blue_color
+    )
+
+    await ctx.send(embed=text_embed)
 
 
 # --------------------------------------------------
