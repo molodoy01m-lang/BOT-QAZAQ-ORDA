@@ -1090,7 +1090,7 @@ class CreateClanModal(Modal, title="Создание клана"):
 class ClanPanelView(View):
     def __init__(self):
         super().__init__(timeout=None)
-        self.add_item(Button(label="alashproject.kz", emoji="🌐", url="https://alashproject.kz/", row=0))
+        self.add_item(Button(label="QAZAQ ORDA", emoji="🌐", url="https://discord.gg/x3wGTSrUY", row=0))
 
     @discord.ui.button(label="Создать клан", style=discord.ButtonStyle.primary, custom_id="create_clan_btn_alash", row=1)
     async def create_clan(self, interaction: discord.Interaction, button: Button):
@@ -1662,20 +1662,20 @@ async def send_clan(ctx):
         title="<a:15770animatedarrowyellow:1503049767016595586> Клановые войны",
         description=(
             "Создай клан, собери команду и бросай вызов другим кланам в матчах 5v5\n\n"
-            "<a:15770animatedarrowyellow:1503049767016595586> **Как начать**\n"
-            "<a:205667glowingdotwhite:1503133833548271646> Нажми \"Создать клан\" и введи название и тег\n"
-            "<a:205667glowingdotwhite:1503133833548271646> Пригласи минимум 4 участников через \"Мой клан\"\n"
-            "<a:205667glowingdotwhite:1503133833548271646> Бросай вызовы через меню управления кланом\n\n"
-            "<a:15770animatedarrowyellow:1562455396814290994> **Правила**\n"
-            "<a:205667glowingdotwhite:1503133833548271646> Минимум 5 участников для участия в войнах\n"
-            "<a:205667glowingdotwhite:1503133833548271646> Cooldown между вызовами одному клану — 2 ч.\n"
-            "<a:205667glowingdotwhite:1503133833548271646> Если клан не собрал 5 игроков за 5 мин до матча — NO-SHOW\n"
-            "<a:205667glowingdotwhite:1503133833548271646> Тег клана автоматически добавляется к нику каждого участника\n\n"
-            "**Alash project kz**"
+            "<a:15770animatedarrowyellow:1562927278382649365> **Как начать**\n"
+            "<a:a_pink_dot:1503066031181140163> Нажми \"Создать клан\" и введи название и тег\n"
+            "<a:a_pink_dot:1503066031181140163> Пригласи минимум 4 участников через \"Мой клан\"\n"
+            "<a:a_pink_dot:1503066031181140163> Бросай вызовы через меню управления кланом\n\n"
+            "<a:15770animatedarrowyellow:1562927278382649365> **Правила**\n"
+            "<a:a_pink_dot:1503066031181140163> Минимум 5 участников для участия в войнах\n"
+            "<a:a_pink_dot:1503066031181140163> Cooldown между вызовами одному клану — 2 ч.\n"
+            "<a:a_pink_dot:1503066031181140163> Если клан не собрал 5 игроков за 5 мин до матча — NO-SHOW\n"
+            "<a:a_pink_dot:1503066031181140163> Тег клана автоматически добавляется к нику каждого участника\n\n"
+            "**QAZAQ ORDA**"
         ),
-        color=discord.Color.from_rgb(180, 0, 0)
+        color=discord.Color.from_rgb(1, 0, 0)
     )
-    embed.set_footer(text="alashproject.kz")
+    embed.set_footer(text="qazaq orda")
     await ctx.send(embed=embed, view=ClanPanelView())
 
 
