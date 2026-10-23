@@ -1673,7 +1673,7 @@ async def send_clan(ctx):
             "<a:a_pink_dot:1503066031181140163> Тег клана автоматически добавляется к нику каждого участника\n\n"
             "**QAZAQ ORDA**"
         ),
-        color=discord.Color.from_rgb(1, 0, 0)
+        color=discord.Color.from_rgb(180, 0, 0)
     )
     embed.set_footer(text="qazaq orda")
     await ctx.send(embed=embed, view=ClanPanelView())
