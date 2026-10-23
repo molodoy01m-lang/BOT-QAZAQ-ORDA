@@ -59,7 +59,7 @@ active_lobbies = {}
 GIRL_BANNER_URL = "https://multibot.pro/api/embeds/images/nfmpvssumgp3km0o"
 MEDIA_BANNER_URL = "https://multibot.pro/api/embeds/images/nfmpvssumgp3km0o"
 TICKET_BANNER_URL = "https://images-ext-1.discordapp.net/external/6VqsrbdKdtI528FK06McahqRlCcp77Gitay4gBq7P7E/https/multibot.pro/api/embeds/images/5909b9dh8j9q8grp?format=webp&width=2048&height=683"
-INFO_BANNER_URL = "https://multibot.pro/api/embeds/images/nfmpvssumgp3km0o" # Осы жерге ақпарат баннерінің сілтемесін қойыңыз
+INFO_BANNER_URL = "https://media.discordapp.net/attachments/1537175765932703806/1563191652162609284/d4d04f7f-d47c-468d-b1cb-ebb38fe7f068.jpg?ex=6adcbb2c&is=6adb69ac&hm=0f7938f2a5489240e0301333d0e67ba3fd932087d4a0ae74197e30f743b892f3&=&format=webp" # Осы жерге ақпарат баннерінің сілтемесін қойыңыз
 
 STAFF_ROLE_IDS = [
     1558434161813885003, 1560326263896539196, 1561398698548658297,
