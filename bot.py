@@ -56,9 +56,9 @@ clans_db = {}
 user_clan_mapping = {}
 active_lobbies = {}
 
-GIRL_BANNER_URL = "https://multibot.pro/api/embeds/images/nfmpvssumgp3km0o"
+GIRL_BANNER_URL = "https://media.discordapp.net/attachments/1537175765932703806/1563207932709961759/80c880e4-b58f-4293-bdd8-03ddaffcf106.png?ex=6adcca56&is=6adb78d6&hm=09d7c99e461f36d0ef0ddd2426f86fae1b0add89b852fbeaf4fce0f4dbb537f4&=&format=webp&quality=lossless"
 MEDIA_BANNER_URL = "https://multibot.pro/api/embeds/images/nfmpvssumgp3km0o"
-TICKET_BANNER_URL = "https://media.discordapp.net/attachments/1537175765932703806/1563203230081491124/bcecece4-d652-4522-9a1d-5e5b20ca544a.png?ex=6adcc5f4&is=6adb7474&hm=a5cb1127a82df463fdd7b41e0467c4b56f495a16fea6f42fdd5a39b7231be2b7&=&format=webp&quality=lossless&width=640&height=240"
+TICKET_BANNER_URL = "https://media.discordapp.net/attachments/1537175765932703806/1563204412711899136/f384c18b-e4c0-4836-9469-8efaae0a52ea.png?ex=6adcc70e&is=6adb758e&hm=a49ce6e075ab8df60f198c1c70ac8ebe422fb70aaab980bdf48dde5c51d2f4cc&=&format=webp&quality=lossless"
 INFO_BANNER_URL = "https://media.discordapp.net/attachments/1537175765932703806/1563191652162609284/d4d04f7f-d47c-468d-b1cb-ebb38fe7f068.jpg?ex=6adcbb2c&is=6adb69ac&hm=0f7938f2a5489240e0301333d0e67ba3fd932087d4a0ae74197e30f743b892f3&=&format=webp" # Осы жерге ақпарат баннерінің сілтемесін қойыңыз
 
 STAFF_ROLE_IDS = [
@@ -1571,8 +1571,8 @@ async def send_voice_panel(ctx):
             "<:807617yellowcrown:1562476141787222078> • Передать канал\n"
             "<:998751lock:1562476028687945838> • Закрыть канал\n"
             "🚫 • Выгнать пользователя\n\n"
-            "*Кнопки активны в вашем войсе.*"
-        ), 
+                "*Кнопки активны в вашем войсе.*"
+            ), 
         color=discord.Color.dark_grey()
     )
     await ctx.send(embed=embed, view=VoiceControlPanel())
@@ -1593,13 +1593,10 @@ async def send_girl_ticket(ctx):
     
     text_embed = discord.Embed(
         description=(
-            "<a:Zoom:1562922078523498526> **Роль Девушка**\n\n"
-            "<a:a_pink_dot:1562921198113914981> Нажмите кнопку ниже, чтобы создать тикет для верификации и получения роли Девушка\n\n"
-            "<a:15770animatedarrowyellow:1562921937561190450> **Информация**\n"
-            "<a:a_pink_dot:1562921198113914981> Создайте тикет для верификации\n"
-            "<a:a_pink_dot:1562921198113914981> Предоставьте доказательства\n"
-            "<a:a_pink_dot:1562921198113914981> Модераторы рассмотрят ваш запрос\n\n"
-            "<a:15770animatedarrowyellow:1562921937561190450> Чтобы получить роль, откройте тикет или обратитесь к администрации сервера."
+            "<a:Zoom:1562922078523498526> **VIP Девушкам**\n\n"
+            "<a:a_pink_dot:1562921198113914981> **Как получить VIP?**\n\n"
+            "<a:15770animatedarrowyellow:1562921937561190450> **Если вы девушка и играете на нашем проекте, мы дарим VIP на всех серверах.**\n"
+            "<a:a_pink_dot:1562921198113914981> Для предотвращения обмана потребуется небольшая проверка аккаунта.\n"
         ),
         color=blue_color
     )
@@ -1621,10 +1618,9 @@ async def send_ticket(ctx):
     
     text_embed = discord.Embed(
         description=(
-            "<:739224member:1562927033422450838> Поддержка **RAGE PROJECT MIX**\n\n"
-            "<a:a_pink_dot:1562927182903517375> При обращении в поддержку необходимо предоставить максимально подробную информацию, включая скриншоты, адрес профиля, и любую другую полезную информацию.\n\n"
-            "<a:15770animatedarrowyellow:1562927278382649365> Важно уважительно относиться к сотрудникам поддержки и соблюдать этикет при общении. Не стоит использовать ненормативную лексику или агрессивный тон. Помните, что запрещается злоупотреблять каналом поддержки.\n\n"
-            "<a:a_pink_dot:1562927182903517375> Также стоит учитывать, что время ответа на ваш запрос может быть различным в зависимости от сложности вопроса и загруженности поддержки. Поэтому, пожалуйста, будьте терпеливы и ожидайте ответа."
+            "<:freeiconchat2697333:1563204080652783738>  **Служба поддержки — QAZAQ ORDA**\n\n"
+            "<a:a_pink_dot:1562927182903517375> Если у вас есть вопрос, предложение о сотрудничестве, сообщение о нарушении, идея для улучшения или вам нужна помощь, создайте тикет!.\n\n"
+            "<a:15770animatedarrowyellow:1562927278382649365>Наша администрация внимательно рассмотрит ваше обращение, ответит на все вопросы и постарается решить вашу проблему в кратчайшие сроки.\n\n"
         ),
         color=blue_color
     )
